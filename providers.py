@@ -47,7 +47,7 @@ class Provider:
         payload = {'model': self.model, 'messages': messages}
         if schemas:
             payload['tools'] = schemas
-        data = post_json(self.url, {'Authorization': f'Bearer {self.key}'}, payload)
+        data = post_json(self.url, {'Authorization': ('Bearer ' + self.key)}, payload)
         choice = data['choices'][0]
         message = choice['message']
         calls = [{'id': c['id'], 'name': c['function']['name'], 'arguments': c['function']['arguments']} for c in message.get('tool_calls', [])]
